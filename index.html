@@ -1,92 +1,142 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Sila sex service </title>
-
-<style>
-
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#111;
-    overflow:hidden;
-    font-family:Arial;
-}
-
-.box{
-    position:relative;
-    width:380px;
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 0 40px rgba(255,215,0,0.3);
-}
-
-.box img{
-    width:100%;
-    display:block;
-}
-
-.overlay{
-    position:absolute;
-    inset:0;
-    background:linear-gradient(to top,
-    rgba(0,0,0,0.4),
-    rgba(0,0,0,0));
-}
-
-.text{
-    position:absolute;
-    bottom:20px;
-    left:20px;
-    color:white;
-}
-
-.text h1{
-    margin:0;
-    color:gold;
-    font-size:30px;
-}
-
-.text p{
-    margin-top:5px;
-    font-size:14px;
-}
-
-.glow{
-    position:absolute;
-    width:250px;
-    height:250px;
-    background:radial-gradient(gold,transparent 70%);
-    top:-50px;
-    right:-50px;
-    opacity:.4;
-    filter:blur(20px);
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ড্রেস আপ & আনড্রেস গেম 💕</title>
+  <style>
+    body {
+      background: #1a0033;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff69b4;
+      margin-bottom: 10px;
+    }
+    .game-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #2a004d;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+    }
+    #character {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 15px;
+      border: 3px solid #ff69b4;
+      margin: 15px 0;
+      cursor: pointer;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #ff1493;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff69b4;
+      transform: scale(1.1);
+    }
+    .score {
+      font-size: 22px;
+      margin: 15px;
+      color: #ffd700;
+    }
+    .info {
+      margin-top: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
 </head>
-
 <body>
+  <h1>🧝‍♀️ ভার্চুয়াল ড্রেস আপ & খোলা গেম 🧝‍♀️</h1>
+  <p>ছবিতে ক্লিক করলে কাপড় খুলবে / পরবে</p>
 
-<div class="box">
+  <div class="game-container">
+    <div class="score">পয়েন্ট: <span id="score">0</span></div>
+    
+    <img id="character" src="https://yourdomain.com/images/gR8QG.jpg" alt="মেয়ে" onclick="toggleClothes()">
+    
+    <div class="controls">
+      <button onclick="changeOutfit(0)">সাদা সেমিজ</button>
+      <button onclick="changeOutfit(1)">ব্ল্যাক লেস</button>
+      <button onclick="changeOutfit(2)">বেজ ব্রা + স্কার্ট</button>
+      <button onclick="changeOutfit(3)">ফুলি খোলা মোড 🔥</button>
+      <button onclick="resetGame()">রিসেট</button>
+    </div>
+  </div>
 
-<img src="file_000000006130720887337de4ddbbf815" alt="Image">
+  <div class="info">
+    টিপ: ছবিতে বার বার ক্লিক করো → কাপড় খুলবে ও পরবে<br>
+    আরও ছবি যোগ করতে চাইলে বলো
+  </div>
 
-<div class="overlay"></div>
+  <script>
+    const images = [
+      "https://yourdomain.com/images/gR8QG.jpg",   // অ্যানিমে সেমিজ
+      "https://yourdomain.com/images/4Ol6n.jpg",   // স্কার্ট সেট
+      "https://yourdomain.com/images/AtJbb.jpg",   // লেস ব্রা
+      "https://yourdomain.com/images/Peswd.jpg"    // গোল্ডেন সেক্সি
+    ];
 
-<div class="glow"></div>
+    let currentIndex = 0;
+    let score = 0;
+    let isUndressed = false;
 
-<div class="text">
-<h1>Miyad Creator</h1>
-<p>Golden Cinematic Style</p>
-</div>
+    const character = document.getElementById('character');
+    const scoreElement = document.getElementById('score');
 
-</div>
+    function toggleClothes() {
+      isUndressed = !isUndressed;
+      score += isUndressed ? 10 : 5;
+      scoreElement.textContent = score;
 
+      if (isUndressed) {
+        character.style.filter = "brightness(1.1) contrast(1.1)";
+      } else {
+        character.style.filter = "none";
+      }
+    }
+
+    function changeOutfit(index) {
+      currentIndex = index % images.length;
+      character.src = images[currentIndex];
+      score += 8;
+      scoreElement.textContent = score;
+      isUndressed = false;
+    }
+
+    function resetGame() {
+      score = 0;
+      scoreElement.textContent = "0";
+      isUndressed = false;
+      character.style.filter = "none";
+      character.src = images[0];
+    }
+
+    // কীবোর্ড সাপোর্ট
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "r" || e.key === "R") resetGame();
+      if (e.key === "ArrowRight") changeOutfit(currentIndex + 1);
+    });
+  </script>
 </body>
 </html>
