@@ -14,34 +14,20 @@
         }
         .timer {
             text-align: center;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
             color: #ff00aa;
-            background: rgba(0,0,0,0.7);
-            padding: 15px;
+            background: rgba(255,0,170,0.2);
+            padding: 18px;
             border-radius: 15px;
-            margin-bottom: 20px;
-            border: 2px solid #ff66cc;
+            margin-bottom: 25px;
+            border: 3px solid #ff66cc;
+            box-shadow: 0 0 15px rgba(255, 0, 170, 0.5);
         }
-        h1 { text-align: center; color: #ff00aa; margin: 10px 0 20px; }
-        
-        .upload-area {
+        h1 {
             text-align: center;
-            padding: 25px;
-            border: 3px dashed #ff00aa;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            background: rgba(0,0,0,0.6);
-        }
-        input[type="file"] { display: none; }
-        .upload-btn {
-            background: #ff00aa;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            cursor: pointer;
+            color: #ff00aa;
+            margin: 10px 0 30px;
         }
         .gallery {
             display: grid;
@@ -55,100 +41,50 @@
             border-radius: 15px;
             overflow: hidden;
             border: 2px solid #ff00aa;
-            position: relative;
+            transition: 0.4s;
         }
-        .card:hover { transform: scale(1.05); }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 170, 0.7);
+        }
         img {
             width: 100%;
             height: 420px;
             object-fit: cover;
         }
-        .title {
+        .info {
             padding: 12px;
             text-align: center;
             font-weight: bold;
             color: #ff99cc;
-            background: rgba(0,0,0,0.7);
-        }
-        .delete-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ff0000;
-            color: white;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 5px;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="timer" id="timer">অ্যাপে সময়: <span id="time">0</span> মিনিট</div>
-    
-    <h1>🔥 বাংলাদেশী হট সেক্সি গ্যালারি 🔥</h1>
-
-    <div class="upload-area">
-        <h2>নতুন ছবি আপলোড করুন</h2>
-        <input type="file" id="imageUpload" accept="image/*">
-        <label for="imageUpload" class="upload-btn">📸 ছবি সিলেক্ট করুন</label><br><br>
-        <input type="text" id="imageTitle" placeholder="ছবির টাইটেল লিখুন" style="width:80%; padding:12px; border-radius:8px;">
+    <div class="timer">
+        অ্যাপে সময়: <span id="timer">0</span> মিনিট
     </div>
 
-    <div class="gallery" id="gallery"></div>
+    <h1>🔥 বাংলাদেশী হট সেক্সি গ্যালারি 🔥</h1>
+    
+    <div class="gallery">
+        <div class="card"><img src="https://picsum.photos/id/1015/600/800" alt="Wet T-shirt"><div class="info">ওয়েট শার্ট</div></div>
+        <div class="card"><img src="https://picsum.photos/id/1027/600/800" alt="Black Lingerie"><div class="info">ব্ল্যাক লিঙ্গারি</div></div>
+        <div class="card"><img src="https://picsum.photos/id/201/600/800" alt="Red Saree"><div class="info">রেড সেক্সি সারি</div></div>
+        <div class="card"><img src="https://picsum.photos/id/1005/600/800" alt="Bridal Hot"><div class="info">লেহেঙ্গা সেক্সি</div></div>
+        <div class="card"><img src="https://picsum.photos/id/133/600/800" alt="Gold Jewelry"><div class="info">গোল্ড জুয়েলারি</div></div>
+        <div class="card"><img src="https://picsum.photos/id/1016/600/800" alt="Bedroom Pose"><div class="info">বেডরুম পোজ</div></div>
+    </div>
 
     <script>
-        const gallery = document.getElementById('gallery');
-        let images = JSON.parse(localStorage.getItem('galleryImages')) || [];
         let minutes = 0;
-        const timerDisplay = document.getElementById('time');
+        const timerElement = document.getElementById('timer');
 
-        // টাইমার
+        // প্রতি মিনিটে আপডেট
         setInterval(() => {
             minutes++;
-            timerDisplay.textContent = minutes;
+            timerElement.textContent = minutes;
         }, 60000);
-
-        function loadGallery() {
-            gallery.innerHTML = '';
-            images.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <img src="\( {item.src}" alt=" \){item.title}">
-                    <button class="delete-btn" onclick="deleteImage(${index})">🗑</button>
-                    <div class="title">${item.title || 'হট সেক্সি'}</div>
-                `;
-                gallery.appendChild(card);
-            });
-        }
-
-        // আপলোড
-        document.getElementById('imageUpload').addEventListener('change', function(e) {
-            const files = e.target.files;
-            const title = document.getElementById('imageTitle').value.trim() || "হট সেক্সি";
-
-            for (let file of files) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    images.push({ src: event.target.result, title: title });
-                    localStorage.setItem('galleryImages', JSON.stringify(images));
-                    loadGallery();
-                };
-                reader.readAsDataURL(file);
-            }
-            document.getElementById('imageTitle').value = '';
-        });
-
-        window.deleteImage = function(index) {
-            if(confirm("ছবিটি ডিলিট করবেন?")) {
-                images.splice(index, 1);
-                localStorage.setItem('galleryImages', JSON.stringify(images));
-                loadGallery();
-            }
-        };
-
-        loadGallery();
     </script>
 </body>
 </html>
