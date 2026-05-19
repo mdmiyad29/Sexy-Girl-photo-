@@ -3,88 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SexVideoCall - হট গ্যালারি</title>
+    <title>SexVideoCall - পোস্ট</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1a0033, #330066);
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-        }
-        .timer {
-            text-align: center;
-            font-size: 32px;
-            font-weight: bold;
-            color: #ff00aa;
-            background: rgba(255,0,170,0.2);
-            padding: 18px;
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #1a0033, #330066); color: #fff; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 15px auto; background: rgba(0,0,0,0.95); border-radius: 20px; overflow: hidden; }
+        .tabs { display: flex; background: #220033; }
+        .tab { flex: 1; padding: 16px; text-align: center; cursor: pointer; font-weight: bold; }
+        .tab.active { background: #ff00aa; color: white; }
+        .content { padding: 20px; display: none; }
+        .content.active { display: block; }
+
+        .post-box {
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
             border-radius: 15px;
-            margin-bottom: 25px;
-            border: 3px solid #ff66cc;
-            box-shadow: 0 0 15px rgba(255, 0, 170, 0.5);
+            margin-bottom: 20px;
+            border: 1px solid #ff00aa;
         }
-        h1 {
-            text-align: center;
-            color: #ff00aa;
-            margin: 10px 0 30px;
-        }
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        .feed {
+            display: flex;
+            flex-direction: column;
             gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
         }
-        .card {
+        .post {
             background: rgba(0,0,0,0.8);
             border-radius: 15px;
             overflow: hidden;
             border: 2px solid #ff00aa;
-            transition: 0.4s;
         }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 0, 170, 0.7);
-        }
-        img {
-            width: 100%;
-            height: 420px;
-            object-fit: cover;
-        }
-        .info {
-            padding: 12px;
-            text-align: center;
-            font-weight: bold;
-            color: #ff99cc;
+        .post img { width: 100%; height: 420px; object-fit: cover; }
+        .caption {
+            padding: 15px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <div class="timer">
-        অ্যাপে সময়: <span id="timer">0</span> মিনিট
-    </div>
+    <div class="container">
+        <h1 style="text-align:center; color:#ff00aa; padding:15px;">SexVideoCall</h1>
 
-    <h1>🔥 বাংলাদেশী হট সেক্সি গ্যালারি 🔥</h1>
-    
-    <div class="gallery">
-        <div class="card"><img src="https://picsum.photos/id/1015/600/800" alt="Wet T-shirt"><div class="info">ওয়েট শার্ট</div></div>
-        <div class="card"><img src="https://picsum.photos/id/1027/600/800" alt="Black Lingerie"><div class="info">ব্ল্যাক লিঙ্গারি</div></div>
-        <div class="card"><img src="https://picsum.photos/id/201/600/800" alt="Red Saree"><div class="info">রেড সেক্সি সারি</div></div>
-        <div class="card"><img src="https://picsum.photos/id/1005/600/800" alt="Bridal Hot"><div class="info">লেহেঙ্গা সেক্সি</div></div>
-        <div class="card"><img src="https://picsum.photos/id/133/600/800" alt="Gold Jewelry"><div class="info">গোল্ড জুয়েলারি</div></div>
-        <div class="card"><img src="https://picsum.photos/id/1016/600/800" alt="Bedroom Pose"><div class="info">বেডরুম পোজ</div></div>
+        <div class="tabs">
+            <div class="tab active" onclick="showTab(0)">📸 পোস্ট করুন</div>
+        </div>
+
+        <div class="content active" id="tab0">
+            <!-- পোস্ট তৈরি -->
+            <div class="post-box">
+                <h2>নতুন পোস্ট করুন</h2>
+                <input type="file" id="postImage" accept="image/*" style="margin:10px 0;">
+                <input type="text" id="postCaption" placeholder="ক্যাপশন লিখুন... (ডার্টি ক্যাপশন দিতে পারেন)" style="width:100%; padding:12px; margin:10px 0; border-radius:8px;">
+                <button onclick="createPost()" style="background:#ff00aa; padding:12px 30px; width:100%; border:none; border-radius:10px; font-size:18px;">পোস্ট করুন 🔥</button>
+            </div>
+
+            <!-- ফিড -->
+            <h2 style="margin:20px 0 10px;">📌 সব পোস্ট</h2>
+            <div class="feed" id="feed"></div>
+        </div>
     </div>
 
     <script>
-        let minutes = 0;
-        const timerElement = document.getElementById('timer');
+        let posts = JSON.parse(localStorage.getItem('userPosts')) || [];
 
-        // প্রতি মিনিটে আপডেট
-        setInterval(() => {
-            minutes++;
-            timerElement.textContent = minutes;
-        }, 60000);
+        function createPost() {
+            const fileInput = document.getElementById('postImage');
+            const caption = document.getElementById('postCaption').value.trim() || "হট পোস্ট 🔥";
+
+            if (!fileInput.files[0]) {
+                alert("ছবি সিলেক্ট করুন");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                posts.unshift({
+                    image: e.target.result,
+                    caption: caption,
+                    time: new Date().toLocaleTimeString('bn-BD')
+                });
+                localStorage.setItem('userPosts', JSON.stringify(posts));
+                loadFeed();
+                fileInput.value = '';
+                document.getElementById('postCaption').value = '';
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        function loadFeed() {
+            const feed = document.getElementById('feed');
+            feed.innerHTML = '';
+
+            posts.forEach(post => {
+                const div = document.createElement('div');
+                div.className = 'post';
+                div.innerHTML = `
+                    <img src="${post.image}">
+                    <div class="caption">${post.caption}</div>
+                    <small style="padding:0 15px 10px; display:block; color:#aaa;">${post.time}</small>
+                `;
+                feed.appendChild(div);
+            });
+        }
+
+        // প্রথমবার লোড
+        window.onload = loadFeed;
     </script>
 </body>
 </html>
