@@ -1,144 +1,174 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Post Feed</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
+<title>Social Feed</title>
 
-        body{
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1a0033, #330066);
-            color:#fff;
-            padding:15px;
-        }
+<style>
 
-        .container{
-            max-width:800px;
-            margin:auto;
-            background: rgba(0,0,0,0.95);
-            border-radius:20px;
-            overflow:hidden;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        h1{
-            text-align:center;
-            color:#ff00aa;
-            padding:18px;
-        }
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#1a0033,#330066);
+    color:white;
+    padding:15px;
+}
 
-        .content{
-            padding:20px;
-        }
+.container{
+    max-width:800px;
+    margin:auto;
+    background:rgba(0,0,0,0.95);
+    border-radius:20px;
+    overflow:hidden;
+}
 
-        .post-box{
-            background: rgba(0,0,0,0.7);
-            padding:15px;
-            border-radius:15px;
-            margin-bottom:20px;
-            border:1px solid #ff00aa;
-        }
+h1{
+    text-align:center;
+    color:#ff00aa;
+    padding:18px;
+    font-size:32px;
+}
 
-        input{
-            width:100%;
-            padding:12px;
-            margin:10px 0;
-            border:none;
-            border-radius:10px;
-            outline:none;
-        }
+.content{
+    padding:20px;
+}
 
-        button{
-            background:#ff00aa;
-            color:white;
-            border:none;
-            padding:12px;
-            width:100%;
-            border-radius:10px;
-            font-size:18px;
-            cursor:pointer;
-        }
+.post-box{
+    background:rgba(0,0,0,0.7);
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:20px;
+    border:1px solid #ff00aa;
+}
 
-        .feed{
-            display:flex;
-            flex-direction:column;
-            gap:20px;
-        }
+.post-box h2{
+    margin-bottom:10px;
+}
 
-        .post{
-            background: rgba(0,0,0,0.8);
-            border-radius:15px;
-            overflow:hidden;
-            border:2px solid #ff00aa;
-        }
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+    outline:none;
+    font-size:16px;
+}
 
-        .post img{
-            width:100%;
-            height:420px;
-            object-fit:cover;
-        }
+.main-btn{
+    background:#ff00aa;
+    color:white;
+    border:none;
+    padding:12px;
+    width:100%;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+}
 
-        .caption{
-            padding:15px;
-            font-size:16px;
-        }
+.feed{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
 
-        .time{
-            color:#aaa;
-            padding:0 15px 10px;
-            display:block;
-        }
+.post{
+    background:rgba(0,0,0,0.8);
+    border-radius:15px;
+    overflow:hidden;
+    border:2px solid #ff00aa;
+}
 
-        .actions{
-            display:flex;
-            justify-content:space-around;
-            border-top:1px solid rgba(255,255,255,0.1);
-            padding:12px;
-        }
+.post img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+}
 
-        .action-btn{
-            background:none;
-            border:none;
-            color:white;
-            cursor:pointer;
-            font-size:16px;
-        }
+.caption{
+    padding:15px;
+    font-size:16px;
+    line-height:1.5;
+}
 
-        .liked{
-            color:#ff2d75;
-        }
+.time{
+    color:#aaa;
+    padding:0 15px 10px;
+    display:block;
+}
 
-        .comment-box{
-            padding:10px 15px 15px;
-        }
+.actions{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    border-top:1px solid rgba(255,255,255,0.1);
+    padding:12px;
+}
 
-        .comment-input{
-            width:100%;
-            padding:10px;
-            border-radius:10px;
-            border:none;
-            margin-top:10px;
-        }
+.action-btn{
+    background:none;
+    border:none;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+    padding:8px 12px;
+    border-radius:8px;
+    transition:0.3s;
+}
 
-        .comments{
-            margin-top:10px;
-        }
+.action-btn:hover{
+    background:rgba(255,255,255,0.1);
+}
 
-        .comment{
-            background:#1e1e1e;
-            padding:8px 10px;
-            border-radius:10px;
-            margin-top:8px;
-            font-size:14px;
-        }
+.comment-box{
+    padding:10px 15px 15px;
+}
 
-    </style>
+.comment-input{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    margin-top:10px;
+}
+
+.comment-btn{
+    margin-top:10px;
+    background:#ff00aa;
+    border:none;
+    color:white;
+    padding:10px;
+    width:100%;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.comments{
+    margin-top:10px;
+}
+
+.comment{
+    background:#1e1e1e;
+    padding:10px;
+    border-radius:10px;
+    margin-top:8px;
+    font-size:14px;
+}
+
+.no-post{
+    text-align:center;
+    color:#aaa;
+    padding:30px;
+}
+
+</style>
 </head>
 
 <body>
@@ -150,20 +180,29 @@
     <div class="content">
 
         <!-- পোস্ট বক্স -->
+
         <div class="post-box">
 
             <h2>নতুন পোস্ট করুন</h2>
 
             <input type="file" id="postImage" accept="image/*">
 
-            <input type="text" id="postCaption" placeholder="ক্যাপশন লিখুন...">
+            <input type="text"
+            id="postCaption"
+            placeholder="ক্যাপশন লিখুন...">
 
-            <button onclick="createPost()">পোস্ট করুন 🚀</button>
+            <button class="main-btn"
+            onclick="createPost()">
+            পোস্ট করুন 🚀
+            </button>
 
         </div>
 
         <!-- ফিড -->
-        <h2 style="margin-bottom:15px;">📌 সব পোস্ট</h2>
+
+        <h2 style="margin-bottom:15px;">
+            📌 সব পোস্ট
+        </h2>
 
         <div class="feed" id="feed"></div>
 
@@ -173,16 +212,26 @@
 
 <script>
 
-let posts = JSON.parse(localStorage.getItem('userPosts')) || [];
+let posts =
+JSON.parse(localStorage.getItem('userPosts')) || [];
+
+/* পোস্ট তৈরি */
 
 function createPost(){
 
-    const fileInput = document.getElementById('postImage');
-    const caption = document.getElementById('postCaption').value.trim() || "নতুন পোস্ট 🔥";
+    const fileInput =
+    document.getElementById('postImage');
+
+    const caption =
+    document.getElementById('postCaption')
+    .value.trim() || "নতুন পোস্ট 🔥";
 
     if(!fileInput.files[0]){
+
         alert("ছবি সিলেক্ট করুন");
+
         return;
+
     }
 
     const reader = new FileReader();
@@ -190,19 +239,32 @@ function createPost(){
     reader.onload = function(e){
 
         posts.unshift({
-            image: e.target.result,
-            caption: caption,
-            time: new Date().toLocaleTimeString('bn-BD'),
-            likes: 0,
-            comments: []
+
+            image:e.target.result,
+
+            caption:caption,
+
+            time:new Date()
+            .toLocaleTimeString('bn-BD'),
+
+            likes:0,
+
+            comments:[]
+
         });
 
-        localStorage.setItem('userPosts', JSON.stringify(posts));
+        localStorage.setItem(
+            'userPosts',
+            JSON.stringify(posts)
+        );
 
         loadFeed();
 
-        fileInput.value = '';
-        document.getElementById('postCaption').value = '';
+        fileInput.value='';
+
+        document.getElementById(
+            'postCaption'
+        ).value='';
 
     };
 
@@ -210,63 +272,102 @@ function createPost(){
 
 }
 
+/* ফিড লোড */
+
 function loadFeed(){
 
-    const feed = document.getElementById('feed');
+    const feed =
+    document.getElementById('feed');
 
     feed.innerHTML = '';
 
+    if(posts.length === 0){
+
+        feed.innerHTML = `
+        <div class="no-post">
+            এখনো কোনো পোস্ট নেই
+        </div>
+        `;
+
+        return;
+
+    }
+
     posts.forEach((post,index)=>{
 
-        const div = document.createElement('div');
+        const div =
+        document.createElement('div');
 
         div.className = 'post';
 
         div.innerHTML = `
 
-            <img src="${post.image}">
+        <img src="${post.image}">
 
-            <div class="caption">${post.caption}</div>
+        <div class="caption">
+            ${post.caption}
+        </div>
 
-            <small class="time">${post.time}</small>
+        <small class="time">
+            ${post.time}
+        </small>
 
-            <div class="actions">
+        <div class="actions">
 
-                <button class="action-btn" onclick="likePost(${index})">
-                    ❤️ Like (${post.likes})
-                </button>
+            <button class="action-btn"
+            onclick="likePost(${index})">
 
-                <button class="action-btn" onclick="toggleComment(${index})">
-                    💬 Comment
-                </button>
+            ❤️ Like (${post.likes})
 
-                <button class="action-btn" onclick="sharePost(${index})">
-                    📤 Share
-                </button>
+            </button>
 
-            </div>
+            <button class="action-btn"
+            onclick="toggleComment(${index})">
 
-            <div class="comment-box" id="commentBox${index}" style="display:none;">
+            💬 Comment (${post.comments.length})
 
-                <input type="text"
-                class="comment-input"
-                id="commentInput${index}"
-                placeholder="কমেন্ট লিখুন...">
+            </button>
 
-                <button style="margin-top:10px;"
-                onclick="addComment(${index})">
-                কমেন্ট করুন
-                </button>
+            <button class="action-btn"
+            onclick="sharePost(${index})">
 
-                <div class="comments">
+            📤 Share
 
-                    ${post.comments.map(c=>`
-                        <div class="comment">${c}</div>
-                    `).join('')}
+            </button>
+
+        </div>
+
+        <div class="comment-box"
+        id="commentBox${index}"
+        style="display:none;">
+
+            <input type="text"
+            class="comment-input"
+            id="commentInput${index}"
+            placeholder="কমেন্ট লিখুন...">
+
+            <button class="comment-btn"
+            onclick="addComment(${index})">
+
+            কমেন্ট করুন
+
+            </button>
+
+            <div class="comments">
+
+            ${post.comments.map(c => `
+
+                <div class="comment">
+
+                    ${c}
 
                 </div>
 
+            `).join('')}
+
             </div>
+
+        </div>
 
         `;
 
@@ -276,67 +377,102 @@ function loadFeed(){
 
 }
 
+/* লাইক */
+
 function likePost(index){
 
     posts[index].likes++;
 
-    localStorage.setItem('userPosts', JSON.stringify(posts));
+    localStorage.setItem(
+        'userPosts',
+        JSON.stringify(posts)
+    );
 
     loadFeed();
 
 }
 
+/* কমেন্ট বক্স */
+
 function toggleComment(index){
 
-    const box = document.getElementById('commentBox'+index);
+    const box =
+    document.getElementById(
+        'commentBox'+index
+    );
 
     if(box.style.display === 'none'){
+
         box.style.display = 'block';
+
     }else{
+
         box.style.display = 'none';
+
     }
 
 }
 
+/* কমেন্ট যোগ */
+
 function addComment(index){
 
-    const input = document.getElementById('commentInput'+index);
+    const input =
+    document.getElementById(
+        'commentInput'+index
+    );
 
     const text = input.value.trim();
 
     if(text === ''){
+
         alert("কমেন্ট লিখুন");
+
         return;
+
     }
 
     posts[index].comments.push(text);
 
-    localStorage.setItem('userPosts', JSON.stringify(posts));
+    localStorage.setItem(
+        'userPosts',
+        JSON.stringify(posts)
+    );
 
     loadFeed();
 
 }
 
+/* শেয়ার */
+
 function sharePost(index){
 
-    const shareText = posts[index].caption;
+    const shareText =
+    posts[index].caption;
 
     if(navigator.share){
 
         navigator.share({
+
             title:'Social Feed',
+
             text:shareText
+
         });
 
     }else{
 
-        navigator.clipboard.writeText(shareText);
+        navigator.clipboard.writeText(
+            shareText
+        );
 
         alert("পোস্ট কপি হয়েছে");
 
     }
 
 }
+
+/* প্রথমবার লোড */
 
 window.onload = loadFeed;
 
