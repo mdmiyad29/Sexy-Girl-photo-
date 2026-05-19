@@ -1,163 +1,92 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Golden Beauty Portrait</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Sila sex service </title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+<style>
 
-    body{
-      background:#111;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      min-height:100vh;
-      font-family:Arial, sans-serif;
-      overflow:hidden;
-    }
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#111;
+    overflow:hidden;
+    font-family:Arial;
+}
 
-    .card{
-      position:relative;
-      width:380px;
-      border-radius:25px;
-      overflow:hidden;
-      box-shadow:0 0 40px rgba(255,215,120,0.25);
-    }
+.box{
+    position:relative;
+    width:380px;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 0 40px rgba(255,215,0,0.3);
+}
 
-    .card img{
-      width:100%;
-      display:block;
-      object-fit:cover;
-      filter:brightness(0.95) contrast(1.05);
-    }
+.box img{
+    width:100%;
+    display:block;
+}
 
-    .overlay{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(
-        to top,
-        rgba(0,0,0,0.35),
-        rgba(0,0,0,0.05)
-      );
-    }
+.overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,
+    rgba(0,0,0,0.4),
+    rgba(0,0,0,0));
+}
 
-    .glow{
-      position:absolute;
-      width:300px;
-      height:300px;
-      background:radial-gradient(circle,
-      rgba(255,215,120,0.35),
-      transparent 70%);
-      top:-50px;
-      right:-50px;
-      filter:blur(10px);
-      animation:moveGlow 6s infinite alternate ease-in-out;
-    }
+.text{
+    position:absolute;
+    bottom:20px;
+    left:20px;
+    color:white;
+}
 
-    @keyframes moveGlow{
-      from{
-        transform:translateY(0px);
-      }
-      to{
-        transform:translateY(30px);
-      }
-    }
+.text h1{
+    margin:0;
+    color:gold;
+    font-size:30px;
+}
 
-    .sparkles span{
-      position:absolute;
-      width:6px;
-      height:6px;
-      background:gold;
-      border-radius:50%;
-      box-shadow:0 0 12px gold;
-      animation:blink 2s infinite alternate;
-    }
+.text p{
+    margin-top:5px;
+    font-size:14px;
+}
 
-    .sparkles span:nth-child(1){
-      top:55%;
-      left:48%;
-    }
+.glow{
+    position:absolute;
+    width:250px;
+    height:250px;
+    background:radial-gradient(gold,transparent 70%);
+    top:-50px;
+    right:-50px;
+    opacity:.4;
+    filter:blur(20px);
+}
 
-    .sparkles span:nth-child(2){
-      top:58%;
-      left:54%;
-      animation-delay:1s;
-    }
-
-    .sparkles span:nth-child(3){
-      top:52%;
-      left:58%;
-      animation-delay:0.5s;
-    }
-
-    .sparkles span:nth-child(4){
-      top:60%;
-      left:50%;
-      animation-delay:1.5s;
-    }
-
-    @keyframes blink{
-      from{
-        opacity:0.3;
-        transform:scale(1);
-      }
-      to{
-        opacity:1;
-        transform:scale(1.8);
-      }
-    }
-
-    .text{
-      position:absolute;
-      bottom:20px;
-      left:20px;
-      color:white;
-      z-index:5;
-    }
-
-    .text h1{
-      font-size:28px;
-      margin-bottom:5px;
-      color:#ffd36e;
-    }
-
-    .text p{
-      font-size:14px;
-      opacity:0.85;
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
-  <div class="card">
+<div class="box">
 
-    <!-- এখানে তোমার নাম দিবে -->
-    <img src="1000427584.jpg" alt="Beauty Image">
+<img src="file_000000006130720887337de4ddbbf815" alt="Image">
 
-    <div class="overlay"></div>
+<div class="overlay"></div>
 
-    <div class="glow"></div>
+<div class="glow"></div>
 
-    <div class="sparkles">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+<div class="text">
+<h1>Miyad Creator</h1>
+<p>Golden Cinematic Style</p>
+</div>
 
-    <div class="text">
-      <h1>Miyad Creator</h1>
-      <p>Golden Cinematic Portrait</p>
-    </div>
-
-  </div>
+</div>
 
 </body>
 </html>
