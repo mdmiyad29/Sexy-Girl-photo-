@@ -262,11 +262,12 @@ function savePosts(){
 }
 
 function createPost(){
+    console.log('Post button clicked');
     const username = document.getElementById('username').value || 'Anonymous';
     const imageInput = document.getElementById('postImage');
     const caption = document.getElementById('caption').value || 'New Post';
 
-    if(!imageInput.files[0]){
+    if(!imageInput.files || imageInput.files.length === 0){
         alert('ছবি সিলেক্ট করুন');
         return;
     }
@@ -274,6 +275,7 @@ function createPost(){
     const reader = new FileReader();
 
     reader.onload = function(e){
+        console.log('Image loaded successfully');
         const post = {
             username,
             caption,
@@ -347,7 +349,10 @@ function loadFeed(){
     });
 }
 
-window.onload = loadFeed;
+window.onload = function(){
+    loadFeed();
+    console.log('App loaded');
+};
 </script>
 
 </body>
