@@ -385,19 +385,10 @@ window.onload = function(){
 </script>
 
 </body>
-</html>
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-query,
-orderBy
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDm-8KWLCzlj_d2QaSBHK9in6AntybOEp0",
@@ -412,6 +403,101 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log("Firebase Connected ✅");
+const feed = document.getElementById('feed');
+const postBtn = document.getElementById('postBtn');
+
+async function createPost(){
+
+    const username = document.getElementById('username').value || 'Anonymous';
+    const caption = document.getElementById('caption').value || 'New Post';
+    const imageInput = document.getElementById('postImage');
+
+    if(!imageInput.files[0]){
+        alert('ছবি সিলেক্ট করুন');
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = async function(e){
+
+        try{
+
+            await addDoc(collection(db,'posts'),{
+                username,
+                caption,
+                image:e.target.result,
+                likes:0,
+                created:Date.now()
+            });
+
+            alert('পোস্ট সফল হয়েছে ✅');
+
+            document.getElementById('caption').value='';
+            document.getElementById('postImage').value='';
+
+            loadPosts();
+
+        }catch(err){
+            console.log(err);
+            alert('পোস্ট করা যায়নি');
+        }
+    }
+
+    reader.readAsDataURL(imageInput.files[0]);
+}
+
+async function loadPosts(){
+
+    feed.innerHTML='';
+
+    const q = query(collection(db,'posts'), orderBy('created','desc'));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((docSnap)=>{
+
+        const post = docSnap.data();
+
+        const div = document.createElement('div');
+        div.className='post';
+
+        div.innerHTML=`
+        <div class="post-header">
+            <div class="avatar">${post.username.charAt(0)}</div>
+            <div class="user-info">
+                <h3>${post.username}</h3>
+            </div>
+        </div>
+
+        <img src="${post.image}">
+
+        <div class="caption">${post.caption}</div>
+
+        <div class="actions">
+            <button class="action-btn delete-btn" data-id="${docSnap.id}">🗑 Delete</button>
+        </div>
+        `;
+
+        feed.appendChild(div);
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn=>{
+
+        btn.addEventListener('click', async ()=>{
+
+            const id = btn.getAttribute('data-id');
+
+            if(confirm('পোস্ট ডিলিট করবেন?')){
+                await deleteDoc(doc(db,'posts',id));
+                loadPosts();
+            }
+        });
+    });
+}
+
+postBtn.addEventListener('click', createPost);
+
+loadPosts();
 
 </script>
+</html>
