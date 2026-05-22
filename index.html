@@ -386,3 +386,32 @@ window.onload = function(){
 
 </body>
 </html>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs,
+query,
+orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDm-8KWLCzlj_d2QaSBHK9in6AntybOEp0",
+  authDomain: "mordan-social.firebaseapp.com",
+  projectId: "mordan-social",
+  storageBucket: "mordan-social.firebasestorage.app",
+  messagingSenderId: "327519765591",
+  appId: "1:327519765591:web:624b6bf1dbe8c5bd1d8f12",
+  measurementId: "G-C7PP03PWT1"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+console.log("Firebase Connected ✅");
+
+</script>
