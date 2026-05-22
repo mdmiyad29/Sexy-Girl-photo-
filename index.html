@@ -247,7 +247,7 @@ button:hover{
 
     <textarea id="caption" placeholder="ক্যাপশন লিখুন..."></textarea>
 
-    <button onclick="createPost()">পোস্ট করুন 🚀</button>
+    <button id="postBtn" type="button">পোস্ট করুন 🚀</button>
 </div>
 
 <div class="feed" id="feed"></div>
@@ -262,37 +262,59 @@ function savePosts(){
 }
 
 function createPost(){
-    console.log('Post button clicked');
-    const username = document.getElementById('username').value || 'Anonymous';
+    const usernameInput = document.getElementById('username');
     const imageInput = document.getElementById('postImage');
-    const caption = document.getElementById('caption').value || 'New Post';
+    const captionInput = document.getElementById('caption');
 
-    if(!imageInput.files || imageInput.files.length === 0){
+    const username = usernameInput.value.trim() || 'Anonymous';
+    const caption = captionInput.value.trim() || 'New Post';
+
+    if (!imageInput.files || imageInput.files.length === 0) {
         alert('ছবি সিলেক্ট করুন');
+        return;
+    }
+
+    const file = imageInput.files[0];
+
+    if (!file.type.startsWith('image/')) {
+        alert('শুধু ছবি আপলোড করুন');
         return;
     }
 
     const reader = new FileReader();
 
-    reader.onload = function(e){
-        console.log('Image loaded successfully');
+    reader.onload = function(event){
         const post = {
-            username,
-            caption,
-            image:e.target.result,
-            likes:0,
-            time:new Date().toLocaleString('bn-BD')
+            username: username,
+            caption: caption,
+            image: event.target.result,
+            likes: 0,
+            time: new Date().toLocaleString('bn-BD')
         };
 
         posts.unshift(post);
-        savePosts();
+
+        try {
+            localStorage.setItem('modernPosts', JSON.stringify(posts));
+        } catch(err){
+            alert('স্টোরেজ সমস্যা হয়েছে');
+            console.log(err);
+        }
+
         loadFeed();
 
-        document.getElementById('caption').value='';
-        document.getElementById('postImage').value='';
-    }
+        usernameInput.value = '';
+        captionInput.value = '';
+        imageInput.value = '';
 
-    reader.readAsDataURL(imageInput.files[0]);
+        alert('পোস্ট সফল হয়েছে ✅');
+    };
+
+    reader.onerror = function(){
+        alert('ছবি লোড করা যায়নি');
+    };
+
+    reader.readAsDataURL(file);
 }
 
 function likePost(index){
@@ -351,7 +373,14 @@ function loadFeed(){
 
 window.onload = function(){
     loadFeed();
-    console.log('App loaded');
+
+    const postBtn = document.getElementById('postBtn');
+
+    if(postBtn){
+        postBtn.addEventListener('click', createPost);
+    }
+
+    console.log('App loaded successfully');
 };
 </script>
 
