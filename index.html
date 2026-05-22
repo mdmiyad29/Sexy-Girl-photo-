@@ -2,194 +2,177 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<title>❤️ প্রেমের জিগস পাজল ❤️</title>
+<title>❤️ হট বাংলাদেশি পাজল গ্যালারি ❤️</title>
 <style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        color: white;
-        text-align: center;
-        padding: 20px;
+    body { 
+        margin:0; padding:20px; 
+        background: linear-gradient(135deg, #ff1a66, #ff6699); 
+        color:white; 
+        font-family:sans-serif; 
+        text-align:center; 
     }
-    h1 {
-        color: #fff;
-        text-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+    h1 { margin:15px; text-shadow: 0 0 20px white; }
+    .gallery { 
+        display:grid; 
+        grid-template-columns:repeat(auto-fill, minmax(170px,1fr)); 
+        gap:15px; 
+        max-width:1200px; 
+        margin:20px auto; 
     }
-    .container {
-        max-width: 1000px;
-        margin: 0 auto;
+    .thumb { 
+        border:4px solid white; 
+        border-radius:15px; 
+        overflow:hidden; 
+        cursor:pointer; 
+        transition:0.3s; 
     }
-    #uploadArea {
-        border: 3px dashed white;
-        padding: 40px;
-        margin: 20px auto;
-        border-radius: 20px;
-        cursor: pointer;
-        background: rgba(255,255,255,0.1);
+    .thumb:hover { 
+        transform:scale(1.08); 
+        box-shadow:0 0 25px #fff; 
     }
-    #gameArea {
-        display: none;
-        margin: 20px auto;
+    .thumb img { width:100%; height:240px; object-fit:cover; }
+    canvas { 
+        border:7px solid white; 
+        border-radius:18px; 
+        box-shadow:0 15px 40px rgba(0,0,0,0.5); 
     }
-    canvas {
-        border: 5px solid white;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    button { 
+        padding:12px 28px; 
+        margin:10px; 
+        background:#ff0066; 
+        border:none; 
+        border-radius:50px; 
+        color:white; 
+        font-size:17px; 
+        cursor:pointer;
     }
-    button {
-        padding: 12px 25px;
-        margin: 10px;
-        background: #ff4d94;
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-    button:hover { background: #ff1a7a; }
-    .hearts {
-        font-size: 30px;
-        animation: float 3s infinite;
-    }
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
-    }
+    button:hover { background:#ff3388; }
 </style>
 </head>
 <body>
-<div class="container">
-    <h1>❤️ প্রেমের জিগস পাজল ❤️</h1>
-    <p>তোমার প্রিয় ছবি দিয়ে পাজল সাজাও</p>
+<h1>❤️ হট বাংলাদেশি জিগস পাজল ❤️</h1>
+<p>যেকোনো ছবিতে ক্লিক করে খেলা শুরু করো</p>
 
-    <div id="uploadArea">
-        <h2>ছবি আপলোড করো</h2>
-        <p>ক্লিক করে তোমার গ্যালারি থেকে ছবি সিলেক্ট করো</p>
-        <input type="file" id="imageInput" accept="image/*" style="display:none;">
-    </div>
+<div id="gallery" class="gallery"></div>
 
-    <div id="gameArea">
-        <canvas id="puzzleCanvas" width="800" height="600"></canvas><br>
-        <button onclick="startNewGame()">নতুন ছবি দিয়ে খেলি</button>
-        <button onclick="shufflePieces()">পিসগুলো এলোমেলো করো</button>
-    </div>
+<div id="gameArea" style="display:none;">
+    <canvas id="puzzleCanvas" width="720" height="620"></canvas><br><br>
+    <button onclick="backToGallery()">← গ্যালারিতে ফিরে যাও</button>
+    <button onclick="shufflePieces()">🔀 এলোমেলো করো</button>
 </div>
 
 <script>
-// জিগস পাজল লজিক
+const sampleImages = [
+    "https://i.ibb.co/1DbJLKX/IMG-20260522-120401.jpg",
+    "https://i.ibb.co/xS3k9VHY/IMG-20260515-072541.jpg",
+    "https://i.ibb.co/spgG4Fmz/IMG-20260516-204109.jpg",
+    "https://i.ibb.co/ZpLv3pCr/your-image4.jpg",   // এগুলো যদি না চলে তাহলে সঠিক ফাইলনেম দিয়ে আপডেট করব
+    "https://i.ibb.co/bjJZz24d/your-image5.jpg",
+    "https://i.ibb.co/RTthfLrj/your-image6.jpg",
+    "https://i.ibb.co/5xWsn3G2/your-image7.jpg",
+    "https://i.ibb.co/DyzyBgR/your-image8.jpg",
+    "https://i.ibb.co/Q7NyhCSM/your-image9.jpg",
+    "https://i.ibb.co/yBgqvKkJ/your-image10.jpg",
+    "https://i.ibb.co/KzxcZQYJ/your-image11.jpg",
+    "https://i.ibb.co/mVSyTtSP/your-image12.jpg",
+    "https://i.ibb.co/PZjWZKTj/your-image13.jpg",
+    "https://i.ibb.co/gcVRzYK/your-image14.jpg",
+    "https://i.ibb.co/n8YJvt3T/your-image15.jpg",
+    "https://i.ibb.co/DPnYPzpS/your-image16.jpg"
+];
+
+let currentImage = new Image();
 let canvas = document.getElementById('puzzleCanvas');
 let ctx = canvas.getContext('2d');
-let img = new Image();
 let pieces = [];
+let gridSize = 4;
 let currentPiece = null;
-let gridSize = 4; // 4x4 = 16 pieces (সহজ করতে চাইলে 3 করে দিতে পারো)
 
-document.getElementById('uploadArea').addEventListener('click', () => {
-    document.getElementById('imageInput').click();
-});
-
-document.getElementById('imageInput').addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            img.src = event.target.result;
-            img.onload = function() {
-                document.getElementById('uploadArea').style.display = 'none';
-                document.getElementById('gameArea').style.display = 'block';
-                initPuzzle();
-            };
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-function initPuzzle() {
-    const aspectRatio = img.width / img.height;
-    canvas.width = 700;
-    canvas.height = 700 / aspectRatio;
+function loadGallery() {
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = '';
     
-    pieces = [];
-    const pieceWidth = canvas.width / gridSize;
-    const pieceHeight = canvas.height / gridSize;
-
-    for (let i = 0; i < gridSize; i++) {
-        for (let j = 0; j < gridSize; j++) {
-            pieces.push({
-                x: j * pieceWidth,
-                y: i * pieceHeight,
-                correctX: j * pieceWidth,
-                correctY: i * pieceHeight,
-                width: pieceWidth,
-                height: pieceHeight,
-                offsetX: 0,
-                offsetY: 0
-            });
-        }
-    }
-    shufflePieces();
-    draw();
+    sampleImages.forEach((url, index) => {
+        const div = document.createElement('div');
+        div.className = 'thumb';
+        div.innerHTML = `<img src="\( {url}" onerror="this.src='https://picsum.photos/300/300?random= \){index}'">`;
+        div.onclick = () => startGame(url);
+        gallery.appendChild(div);
+    });
 }
 
-function shufflePieces() {
-    pieces.sort(() => Math.random() - 0.5);
-    const pieceWidth = canvas.width / gridSize;
-    const pieceHeight = canvas.height / gridSize;
+function startGame(url) {
+    document.getElementById('gallery').style.display = 'none';
+    document.getElementById('gameArea').style.display = 'block';
     
-    pieces.forEach((piece, index) => {
-        const row = Math.floor(index / gridSize);
-        const col = index % gridSize;
-        piece.x = col * pieceWidth + (Math.random() * 200 - 100);
-        piece.y = row * pieceHeight + (Math.random() * 200 - 100);
-    });
+    currentImage.src = url;
+    currentImage.onload = initPuzzle;
+    currentImage.onerror = () => alert("ছবি লোড হচ্ছে না। লিংক আপডেট করতে হতে পারে।");
+}
+
+function initPuzzle() {
+    const aspect = currentImage.width / currentImage.height;
+    canvas.height = Math.floor(720 / aspect);
+    
+    pieces = [];
+    const pw = canvas.width / gridSize;
+    const ph = canvas.height / gridSize;
+
+    for (let i = 0; i < gridSize * gridSize; i++) {
+        const row = Math.floor(i / gridSize);
+        const col = i % gridSize;
+        pieces.push({
+            correctX: col * pw,
+            correctY: row * ph,
+            x: Math.random() * (canvas.width - pw),
+            y: Math.random() * (canvas.height - ph),
+            width: pw,
+            height: ph
+        });
+    }
+    draw();
 }
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Background hearts effect
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-    ctx.font = '30px Arial';
-    ctx.fillText('❤️', 50, 80);
-    ctx.fillText('💕', canvas.width-100, 120);
-    
-    pieces.forEach(piece => {
-        ctx.save();
-        ctx.drawImage(
-            img,
-            piece.correctX, piece.correctY, piece.width, piece.height,
-            piece.x, piece.y, piece.width, piece.height
-        );
-        ctx.strokeStyle = 'white';
-        ctx.lineWidth = 3;
-        ctx.strokeRect(piece.x, piece.y, piece.width, piece.height);
-        ctx.restore();
+    pieces.forEach(p => {
+        ctx.drawImage(currentImage, p.correctX, p.correctY, p.width, p.height, p.x, p.y, p.width, p.height);
+        ctx.strokeStyle = "rgba(255,255,255,0.85)";
+        ctx.lineWidth = 4;
+        ctx.strokeRect(p.x, p.y, p.width, p.height);
     });
 }
 
-// Mouse events
-canvas.addEventListener('mousedown', (e) => {
+function shufflePieces() {
+    pieces.sort(() => Math.random() - 0.5);
+    draw();
+}
+
+function backToGallery() {
+    document.getElementById('gallery').style.display = 'grid';
+    document.getElementById('gameArea').style.display = 'none';
+}
+
+// Mouse Drag Logic
+canvas.addEventListener('mousedown', e => {
     const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
     
-    for (let i = pieces.length - 1; i >= 0; i--) {
-        const p = pieces[i];
-        if (mouseX > p.x && mouseX < p.x + p.width &&
-            mouseY > p.y && mouseY < p.y + p.height) {
+    for (let i = pieces.length-1; i >= 0; i--) {
+        let p = pieces[i];
+        if (mx > p.x && mx < p.x + p.width && my > p.y && my < p.y + p.height) {
             currentPiece = p;
-            p.offsetX = mouseX - p.x;
-            p.offsetY = mouseY - p.y;
-            // Bring to front
-            pieces.splice(i, 1);
+            currentPiece.offsetX = mx - p.x;
+            currentPiece.offsetY = my - p.y;
+            pieces.splice(i,1);
             pieces.push(p);
             break;
         }
     }
 });
 
-canvas.addEventListener('mousemove', (e) => {
+canvas.addEventListener('mousemove', e => {
     if (!currentPiece) return;
     const rect = canvas.getBoundingClientRect();
     currentPiece.x = e.clientX - rect.left - currentPiece.offsetX;
@@ -200,10 +183,9 @@ canvas.addEventListener('mousemove', (e) => {
 canvas.addEventListener('mouseup', () => {
     if (!currentPiece) return;
     
-    // Snap to correct position if close
-    const snapRange = 30;
-    if (Math.abs(currentPiece.x - currentPiece.correctX) < snapRange &&
-        Math.abs(currentPiece.y - currentPiece.correctY) < snapRange) {
+    const snap = 28;
+    if (Math.abs(currentPiece.x - currentPiece.correctX) < snap && 
+        Math.abs(currentPiece.y - currentPiece.correctY) < snap) {
         currentPiece.x = currentPiece.correctX;
         currentPiece.y = currentPiece.correctY;
     }
@@ -211,44 +193,12 @@ canvas.addEventListener('mouseup', () => {
     currentPiece = null;
     draw();
     
-    // Check if completed
-    if (pieces.every(p => p.x === p.correctX && p.y === p.correctY)) {
-        setTimeout(() => {
-            alert("🎉 অসাধারণ! তুমি পাজলটা সম্পূর্ণ করেছো!\n❤️ তোমার প্রেম সুন্দর হোক ❤️");
-        }, 200);
+    if (pieces.every(p => Math.abs(p.x - p.correctX) < 8 && Math.abs(p.y - p.correctY) < 8)) {
+        setTimeout(() => alert("🎉 অসাধারণ! তুমি পাজলটা সম্পূর্ণ করেছো ❤️"), 200);
     }
 });
 
-// Touch support for mobile
-canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const mouseEvent = new MouseEvent('mousedown', {
-        clientX: touch.clientX,
-        clientY: touch.clientY
-    });
-    canvas.dispatchEvent(mouseEvent);
-});
-
-canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const mouseEvent = new MouseEvent('mousemove', {
-        clientX: touch.clientX,
-        clientY: touch.clientY
-    });
-    canvas.dispatchEvent(mouseEvent);
-});
-
-canvas.addEventListener('touchend', () => {
-    const mouseEvent = new MouseEvent('mouseup');
-    canvas.dispatchEvent(mouseEvent);
-});
-
-function startNewGame() {
-    document.getElementById('uploadArea').style.display = 'block';
-    document.getElementById('gameArea').style.display = 'none';
-}
+loadGallery();
 </script>
 </body>
 </html>
