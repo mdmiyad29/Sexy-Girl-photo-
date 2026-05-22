@@ -1,493 +1,254 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Modern Social App</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<meta charset="UTF-8">
+<title>❤️ প্রেমের জিগস পাজল ❤️</title>
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Poppins',sans-serif;
-    background:#0f0f1a;
-    color:white;
-    overflow-x:hidden;
-}
-
-body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    background:url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop') center/cover;
-    opacity:0.18;
-    z-index:-2;
-    animation:bgZoom 20s infinite alternate;
-}
-
-body::after{
-    content:'';
-    position:fixed;
-    inset:0;
-    background:linear-gradient(135deg,#12001f,#220033,#000814);
-    opacity:0.92;
-    z-index:-1;
-}
-
-@keyframes bgZoom{
-    from{transform:scale(1);}
-    to{transform:scale(1.1);}
-}
-
-.container{
-    max-width:850px;
-    margin:auto;
-    padding:20px;
-}
-
-.header{
-    text-align:center;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:24px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(12px);
-    border:1px solid rgba(255,255,255,0.08);
-}
-
-.logo{
-    font-size:42px;
-    font-weight:700;
-    background:linear-gradient(90deg,#ff00aa,#8f5cff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.subtitle{
-    margin-top:8px;
-    color:#ccc;
-}
-
-.card{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:24px;
-    padding:20px;
-    backdrop-filter:blur(12px);
-    margin-bottom:25px;
-}
-
-.card h2{
-    margin-bottom:15px;
-}
-
-input, textarea{
-    width:100%;
-    padding:14px;
-    margin-top:12px;
-    border:none;
-    border-radius:14px;
-    background:#1d1d2d;
-    color:white;
-    font-size:15px;
-}
-
-textarea{
-    min-height:110px;
-    resize:none;
-}
-
-.file-box{
-    border:2px dashed #ff00aa;
-    padding:18px;
-    border-radius:16px;
-    margin-top:15px;
-    text-align:center;
-}
-
-button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:16px;
-    margin-top:15px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
-    background:linear-gradient(90deg,#ff00aa,#8f5cff);
-    color:white;
-}
-
-button:hover{
-    transform:translateY(-2px);
-    opacity:0.9;
-}
-
-.feed{
-    display:flex;
-    flex-direction:column;
-    gap:25px;
-}
-
-.post{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:24px;
-    overflow:hidden;
-    backdrop-filter:blur(10px);
-    animation:fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(20px);
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        color: white;
+        text-align: center;
+        padding: 20px;
     }
-    to{
-        opacity:1;
-        transform:translateY(0);
+    h1 {
+        color: #fff;
+        text-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
     }
-}
-
-.post-header{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:16px;
-}
-
-.avatar{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#ff00aa,#8f5cff);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
-}
-
-.user-info h3{
-    font-size:16px;
-}
-
-.user-info p{
-    font-size:12px;
-    color:#aaa;
-}
-
-.post img{
-    width:100%;
-    max-height:520px;
-    object-fit:cover;
-}
-
-.caption{
-    padding:18px;
-    line-height:1.6;
-}
-
-.actions{
-    display:flex;
-    justify-content:space-around;
-    padding:16px;
-    border-top:1px solid rgba(255,255,255,0.06);
-}
-
-.action-btn{
-    background:none;
-    border:none;
-    color:white;
-    cursor:pointer;
-    font-size:15px;
-}
-
-.empty{
-    text-align:center;
-    color:#aaa;
-    padding:40px 0;
-}
-
-@media(max-width:600px){
-    .logo{
-        font-size:32px;
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
     }
-
-    .container{
-        padding:12px;
+    #uploadArea {
+        border: 3px dashed white;
+        padding: 40px;
+        margin: 20px auto;
+        border-radius: 20px;
+        cursor: pointer;
+        background: rgba(255,255,255,0.1);
     }
-}
+    #gameArea {
+        display: none;
+        margin: 20px auto;
+    }
+    canvas {
+        border: 5px solid white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    button {
+        padding: 12px 25px;
+        margin: 10px;
+        background: #ff4d94;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover { background: #ff1a7a; }
+    .hearts {
+        font-size: 30px;
+        animation: float 3s infinite;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
 </style>
 </head>
 <body>
-
 <div class="container">
+    <h1>❤️ প্রেমের জিগস পাজল ❤️</h1>
+    <p>তোমার প্রিয় ছবি দিয়ে পাজল সাজাও</p>
 
-<div class="header">
-    <div class="logo">Modern Social</div>
-    <div class="subtitle">Photo Sharing Community</div>
-</div>
-
-<div class="card">
-    <h2>নতুন পোস্ট করুন</h2>
-
-    <input type="text" id="username" placeholder="আপনার নাম লিখুন">
-
-    <div class="file-box">
-        <input type="file" id="postImage" accept="image/*">
+    <div id="uploadArea">
+        <h2>ছবি আপলোড করো</h2>
+        <p>ক্লিক করে তোমার গ্যালারি থেকে ছবি সিলেক্ট করো</p>
+        <input type="file" id="imageInput" accept="image/*" style="display:none;">
     </div>
 
-    <textarea id="caption" placeholder="ক্যাপশন লিখুন..."></textarea>
-
-    <button id="postBtn" type="button">পোস্ট করুন 🚀</button>
-</div>
-
-<div class="feed" id="feed"></div>
-
+    <div id="gameArea">
+        <canvas id="puzzleCanvas" width="800" height="600"></canvas><br>
+        <button onclick="startNewGame()">নতুন ছবি দিয়ে খেলি</button>
+        <button onclick="shufflePieces()">পিসগুলো এলোমেলো করো</button>
+    </div>
 </div>
 
 <script>
-let posts = JSON.parse(localStorage.getItem('modernPosts')) || [];
+// জিগস পাজল লজিক
+let canvas = document.getElementById('puzzleCanvas');
+let ctx = canvas.getContext('2d');
+let img = new Image();
+let pieces = [];
+let currentPiece = null;
+let gridSize = 4; // 4x4 = 16 pieces (সহজ করতে চাইলে 3 করে দিতে পারো)
 
-function savePosts(){
-    localStorage.setItem('modernPosts', JSON.stringify(posts));
-}
+document.getElementById('uploadArea').addEventListener('click', () => {
+    document.getElementById('imageInput').click();
+});
 
-function createPost(){
-    const usernameInput = document.getElementById('username');
-    const imageInput = document.getElementById('postImage');
-    const captionInput = document.getElementById('caption');
-
-    const username = usernameInput.value.trim() || 'Anonymous';
-    const caption = captionInput.value.trim() || 'New Post';
-
-    if (!imageInput.files || imageInput.files.length === 0) {
-        alert('ছবি সিলেক্ট করুন');
-        return;
-    }
-
-    const file = imageInput.files[0];
-
-    if (!file.type.startsWith('image/')) {
-        alert('শুধু ছবি আপলোড করুন');
-        return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function(event){
-        const post = {
-            username: username,
-            caption: caption,
-            image: event.target.result,
-            likes: 0,
-            time: new Date().toLocaleString('bn-BD')
+document.getElementById('imageInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            img.src = event.target.result;
+            img.onload = function() {
+                document.getElementById('uploadArea').style.display = 'none';
+                document.getElementById('gameArea').style.display = 'block';
+                initPuzzle();
+            };
         };
-
-        posts.unshift(post);
-
-        try {
-            localStorage.setItem('modernPosts', JSON.stringify(posts));
-        } catch(err){
-            alert('স্টোরেজ সমস্যা হয়েছে');
-            console.log(err);
-        }
-
-        loadFeed();
-
-        usernameInput.value = '';
-        captionInput.value = '';
-        imageInput.value = '';
-
-        alert('পোস্ট সফল হয়েছে ✅');
-    };
-
-    reader.onerror = function(){
-        alert('ছবি লোড করা যায়নি');
-    };
-
-    reader.readAsDataURL(file);
-}
-
-function likePost(index){
-    posts[index].likes++;
-    savePosts();
-    loadFeed();
-}
-
-function deletePost(index){
-    if(confirm('পোস্ট ডিলিট করবেন?')){
-        posts.splice(index,1);
-        savePosts();
-        loadFeed();
+        reader.readAsDataURL(file);
     }
-}
+});
 
-function loadFeed(){
-    const feed = document.getElementById('feed');
-
-    if(posts.length===0){
-        feed.innerHTML = '<div class="empty">এখনো কোনো পোস্ট নেই</div>';
-        return;
-    }
-
-    feed.innerHTML='';
-
-    posts.forEach((post,index)=>{
-
-        const div = document.createElement('div');
-        div.className='post';
-
-        div.innerHTML=`
-        <div class="post-header">
-            <div class="avatar">${post.username.charAt(0).toUpperCase()}</div>
-            <div class="user-info">
-                <h3>${post.username}</h3>
-                <p>${post.time}</p>
-            </div>
-        </div>
-
-        <img src="${post.image}">
-
-        <div class="caption">
-            ${post.caption}
-        </div>
-
-        <div class="actions">
-            <button class="action-btn" onclick="likePost(${index})">❤️ ${post.likes}</button>
-            <button class="action-btn" onclick="deletePost(${index})">🗑 Delete</button>
-        </div>
-        `;
-
-        feed.appendChild(div);
-    });
-}
-
-window.onload = function(){
-    loadFeed();
-
-    const postBtn = document.getElementById('postBtn');
-
-    if(postBtn){
-        postBtn.addEventListener('click', createPost);
-    }
-
-    console.log('App loaded successfully');
-};
-</script>
-
-</body>
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDm-8KWLCzlj_d2QaSBHK9in6AntybOEp0",
-  authDomain: "mordan-social.firebaseapp.com",
-  projectId: "mordan-social",
-  storageBucket: "mordan-social.firebasestorage.app",
-  messagingSenderId: "327519765591",
-  appId: "1:327519765591:web:624b6bf1dbe8c5bd1d8f12",
-  measurementId: "G-C7PP03PWT1"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const feed = document.getElementById('feed');
-const postBtn = document.getElementById('postBtn');
-
-async function createPost(){
-
-    const username = document.getElementById('username').value || 'Anonymous';
-    const caption = document.getElementById('caption').value || 'New Post';
-    const imageInput = document.getElementById('postImage');
-
-    if(!imageInput.files[0]){
-        alert('ছবি সিলেক্ট করুন');
-        return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = async function(e){
-
-        try{
-
-            await addDoc(collection(db,'posts'),{
-                username,
-                caption,
-                image:e.target.result,
-                likes:0,
-                created:Date.now()
-            });
-
-            alert('পোস্ট সফল হয়েছে ✅');
-
-            document.getElementById('caption').value='';
-            document.getElementById('postImage').value='';
-
-            loadPosts();
-
-        }catch(err){
-            console.log(err);
-            alert('পোস্ট করা যায়নি');
-        }
-    }
-
-    reader.readAsDataURL(imageInput.files[0]);
-}
-
-async function loadPosts(){
-
-    feed.innerHTML='';
-
-    const q = query(collection(db,'posts'), orderBy('created','desc'));
-    const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((docSnap)=>{
-
-        const post = docSnap.data();
-
-        const div = document.createElement('div');
-        div.className='post';
-
-        div.innerHTML=`
-        <div class="post-header">
-            <div class="avatar">${post.username.charAt(0)}</div>
-            <div class="user-info">
-                <h3>${post.username}</h3>
-            </div>
-        </div>
-
-        <img src="${post.image}">
-
-        <div class="caption">${post.caption}</div>
-
-        <div class="actions">
-            <button class="action-btn">❤️ Public Post</button>
-        </div>
-        `;
-
-        feed.appendChild(div);
-    });
-
+function initPuzzle() {
+    const aspectRatio = img.width / img.height;
+    canvas.width = 700;
+    canvas.height = 700 / aspectRatio;
     
+    pieces = [];
+    const pieceWidth = canvas.width / gridSize;
+    const pieceHeight = canvas.height / gridSize;
+
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            pieces.push({
+                x: j * pieceWidth,
+                y: i * pieceHeight,
+                correctX: j * pieceWidth,
+                correctY: i * pieceHeight,
+                width: pieceWidth,
+                height: pieceHeight,
+                offsetX: 0,
+                offsetY: 0
+            });
+        }
+    }
+    shufflePieces();
+    draw();
+}
+
+function shufflePieces() {
+    pieces.sort(() => Math.random() - 0.5);
+    const pieceWidth = canvas.width / gridSize;
+    const pieceHeight = canvas.height / gridSize;
+    
+    pieces.forEach((piece, index) => {
+        const row = Math.floor(index / gridSize);
+        const col = index % gridSize;
+        piece.x = col * pieceWidth + (Math.random() * 200 - 100);
+        piece.y = row * pieceHeight + (Math.random() * 200 - 100);
     });
 }
 
-postBtn.addEventListener('click', createPost);
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Background hearts effect
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.font = '30px Arial';
+    ctx.fillText('❤️', 50, 80);
+    ctx.fillText('💕', canvas.width-100, 120);
+    
+    pieces.forEach(piece => {
+        ctx.save();
+        ctx.drawImage(
+            img,
+            piece.correctX, piece.correctY, piece.width, piece.height,
+            piece.x, piece.y, piece.width, piece.height
+        );
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(piece.x, piece.y, piece.width, piece.height);
+        ctx.restore();
+    });
+}
 
-loadPosts();
+// Mouse events
+canvas.addEventListener('mousedown', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    for (let i = pieces.length - 1; i >= 0; i--) {
+        const p = pieces[i];
+        if (mouseX > p.x && mouseX < p.x + p.width &&
+            mouseY > p.y && mouseY < p.y + p.height) {
+            currentPiece = p;
+            p.offsetX = mouseX - p.x;
+            p.offsetY = mouseY - p.y;
+            // Bring to front
+            pieces.splice(i, 1);
+            pieces.push(p);
+            break;
+        }
+    }
+});
 
+canvas.addEventListener('mousemove', (e) => {
+    if (!currentPiece) return;
+    const rect = canvas.getBoundingClientRect();
+    currentPiece.x = e.clientX - rect.left - currentPiece.offsetX;
+    currentPiece.y = e.clientY - rect.top - currentPiece.offsetY;
+    draw();
+});
+
+canvas.addEventListener('mouseup', () => {
+    if (!currentPiece) return;
+    
+    // Snap to correct position if close
+    const snapRange = 30;
+    if (Math.abs(currentPiece.x - currentPiece.correctX) < snapRange &&
+        Math.abs(currentPiece.y - currentPiece.correctY) < snapRange) {
+        currentPiece.x = currentPiece.correctX;
+        currentPiece.y = currentPiece.correctY;
+    }
+    
+    currentPiece = null;
+    draw();
+    
+    // Check if completed
+    if (pieces.every(p => p.x === p.correctX && p.y === p.correctY)) {
+        setTimeout(() => {
+            alert("🎉 অসাধারণ! তুমি পাজলটা সম্পূর্ণ করেছো!\n❤️ তোমার প্রেম সুন্দর হোক ❤️");
+        }, 200);
+    }
+});
+
+// Touch support for mobile
+canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const mouseEvent = new MouseEvent('mousedown', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+    });
+    canvas.dispatchEvent(mouseEvent);
+});
+
+canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const mouseEvent = new MouseEvent('mousemove', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+    });
+    canvas.dispatchEvent(mouseEvent);
+});
+
+canvas.addEventListener('touchend', () => {
+    const mouseEvent = new MouseEvent('mouseup');
+    canvas.dispatchEvent(mouseEvent);
+});
+
+function startNewGame() {
+    document.getElementById('uploadArea').style.display = 'block';
+    document.getElementById('gameArea').style.display = 'none';
+}
 </script>
+</body>
 </html>
