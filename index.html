@@ -383,12 +383,10 @@ window.onload = function(){
     console.log('App loaded successfully');
 };
 </script>
-
-</body>
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDm-8KWLCzlj_d2QaSBHK9in6AntybOEp0",
@@ -474,24 +472,14 @@ async function loadPosts(){
         <div class="caption">${post.caption}</div>
 
         <div class="actions">
-            <button class="action-btn delete-btn" data-id="${docSnap.id}">🗑 Delete</button>
+            <button class="action-btn">❤️ Public Post</button>
         </div>
         `;
 
         feed.appendChild(div);
     });
 
-    document.querySelectorAll('.delete-btn').forEach(btn=>{
-
-        btn.addEventListener('click', async ()=>{
-
-            const id = btn.getAttribute('data-id');
-
-            if(confirm('পোস্ট ডিলিট করবেন?')){
-                await deleteDoc(doc(db,'posts',id));
-                loadPosts();
-            }
-        });
+    
     });
 }
 
@@ -500,4 +488,5 @@ postBtn.addEventListener('click', createPost);
 loadPosts();
 
 </script>
+</body>
 </html>
